@@ -28,30 +28,32 @@
         </SfListItem>
       </div>
     </div>
-    <hr />
-    <div class="py-10 md:flex md:mx-auto max-w-[1536px]">
-      <div
-        v-for="{ label, icon, link, details } in contactOptions"
-        :key="label"
-        class="mx-auto my-4 text-center"
-      >
-        <component :is="icon" size="lg" />
-        <p class="py-1 my-2 font-medium typography-text-lg font-body">
-          <SfLink
-            variant="secondary"
-            class="no-underline text-neutral-600 hover:underline hover:!text-neutral-900 active:underline active:!text-neutral-900"
-            :href="link"
-          >
-            {{ label }}
-          </SfLink>
-        </p>
-        <p
-          v-for="option in details"
-          :key="option"
-          class="leading-5 typography-text-sm text-neutral-600 font-body"
+
+    <div class="bg-[#F9C066]">
+      <div class="py-10 md:flex md:mx-auto max-w-7xl">
+        <div
+          v-for="{ label, icon, link, details } in contactOptions"
+          :key="label"
+          class="mx-auto my-4 text-center"
         >
-          {{ option }}
-        </p>
+          <component :is="icon" size="lg" />
+          <p class="py-1 my-2 font-medium typography-text-lg font-body">
+            <SfLink
+              variant="secondary"
+              class="no-underline text-neutral-600 hover:underline hover:!text-neutral-900 active:underline active:!text-neutral-900"
+              :href="link"
+            >
+              {{ label }}
+            </SfLink>
+          </p>
+          <p
+            v-for="option in details"
+            :key="option"
+            class="leading-5 typography-text-sm text-neutral-600 font-body"
+          >
+            {{ option }}
+          </p>
+        </div>
       </div>
     </div>
     <div class="bg-neutral-900 justify-end px-4 py-10 md:flex md:py-6 w-full">
@@ -70,6 +72,7 @@
             <component :is="icon" />
           </SfButton>
         </div>
+
         <div
           class="flex items-center justify-center gap-6 py-2 my-4 md:ml-auto md:my-0"
         >
@@ -86,7 +89,7 @@
         <p
           class="flex items-center justify-center py-2 leading-5 text-center typography-text-sm text-white/50 font-body md:ml-6"
         >
-          @2023 Pixel perfect prints
+          @2023 Pixel Perfect Prints - Princess Nugget Crafts
         </p>
       </div>
     </div>

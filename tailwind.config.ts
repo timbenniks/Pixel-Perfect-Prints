@@ -7,7 +7,7 @@ export default <Config>{
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Open Sans", "sans-serif"],
+        sans: ["Arial", "sans-serif"],
         titles: ["Goku", "sans-serif"]
       },
       colors: {

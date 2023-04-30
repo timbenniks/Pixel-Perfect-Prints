@@ -38,8 +38,10 @@ export const useProductStore = defineStore({
     },
 
     async createCheckout() {
-      const checkout = await shopifyClient.checkout.create();
-      this.checkout = JSON.parse(JSON.stringify(checkout))
+      if (!this.checkout) {
+        const checkout = await shopifyClient.checkout.create();
+        this.checkout = JSON.parse(JSON.stringify(checkout))
+      }
     },
 
     async addLineItems() {

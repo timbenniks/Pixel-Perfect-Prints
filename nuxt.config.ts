@@ -11,7 +11,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts',
     '@nuxt/image-edge',
     '@nuxtjs/tailwindcss',
     [
@@ -22,15 +21,9 @@ export default defineNuxtConfig({
     ],
     '@nuxtjs/supabase'
   ],
+
   imports: {
     dirs: ['store'],
-  },
-
-  googleFonts: {
-    display: 'swap',
-    families: {
-      "Open Sans": [400, 700]
-    }
   },
 
   image: {
@@ -38,5 +31,5 @@ export default defineNuxtConfig({
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/dwfcofnrd/image/upload/ppp',
     }
-  }
+  },
 })

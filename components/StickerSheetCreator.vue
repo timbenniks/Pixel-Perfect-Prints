@@ -158,6 +158,7 @@ async function createCheckout() {
   await productStore.createCheckout();
   await productStore.addLineItems();
   await saveImage().catch((error) => console.error(error));
+  //productStore.setLoading(false);
   window.location.href = checkoutUrl.value;
 }
 
@@ -339,13 +340,13 @@ watch(material, (selectedMaterial) => {
           class="font-semibold !bg-neutral-900 hover:opacity-90 hover:underline"
         >
           <template v-if="loading"
-            >Adding to cart...
+            >Creating your sticker sheet...
             <SfLoaderCircular
               size="sm"
-              class="!text-primary-200 !ring-primary-900 ml-2"
+              class="!text-white !ring-primary-900 ml-2"
             />
           </template>
-          <template v-else>Buy now</template>
+          <template v-else>Add to cart</template>
         </SfButton>
       </div>
     </div>
