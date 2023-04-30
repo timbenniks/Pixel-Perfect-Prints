@@ -1,0 +1,28 @@
+<script setup lang="ts">
+useServerSeoMeta({
+  title: "Pixel Perfect Prints",
+  ogTitle: "Pixel Perfect Prints",
+  description:
+    "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
+  ogDescription:
+    "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
+  ogImage: "https://example.com/image.png",
+  twitterCard: "summary_large_image",
+});
+</script>
+<template>
+  <global-header />
+  <welcome />
+
+  <two-column class="max-w-7xl mx-auto px-8 lg:p-0 mb-8">
+    <template v-slot:sideA>
+      <card-cta-png />
+    </template>
+    <template v-slot:sideB>
+      <card-cta-get-started />
+    </template>
+  </two-column>
+
+  <sticker-creator />
+  <global-footer />
+</template>
