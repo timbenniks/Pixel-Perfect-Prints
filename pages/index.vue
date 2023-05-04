@@ -25,4 +25,5 @@ useServerSeoMeta({
 
   <sticker-creator />
   <global-footer />
+  <basket />
 </template>

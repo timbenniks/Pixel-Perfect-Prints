@@ -3,7 +3,11 @@ import { SfCounter, SfIconShoppingCart } from "@storefront-ui/vue";
 
 import { storeToRefs } from "pinia";
 const productStore = useProductStore();
-const { quantity } = storeToRefs(productStore);
+const { quantityInBasket, basketOpen } = storeToRefs(productStore);
+
+function openBasket() {
+  productStore.setBasketOpen(true);
+}
 </script>
 <template>
   <header
@@ -12,8 +16,8 @@ const { quantity } = storeToRefs(productStore);
     <div class="max-w-7xl mx-auto flex justify-between">
       <logoSmall class="w-[350px] md:w-[400px] pt-4 pl-4" />
 
-      <!-- <div class="relative mt-8 mr-6">
-        <button @click="open = true">
+      <div class="relative mt-8 mr-6">
+        <button @click="openBasket()">
           <SfIconShoppingCart size="lg" class="" />
 
           <SfCounter
@@ -21,10 +25,10 @@ const { quantity } = storeToRefs(productStore);
             pill
             class="!text-white bg-primary-800 ring-primary-800 absolute -top-2 left-6"
           >
-            {{ quantity }}
+            {{ quantityInBasket }}
           </SfCounter>
         </button>
-      </div> -->
+      </div>
     </div>
   </header>
 </template>

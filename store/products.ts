@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Client from 'shopify-buy';
-import type { Product, Checkout, ProductVariant } from 'shopify-buy'
+import type { Product, Checkout, ProductVariant, OrderLineItem } from 'shopify-buy'
 
 const shopifyClient = Client.buildClient({
   apiVersion: '2023-04',
@@ -24,24 +24,28 @@ export const useProductStore = defineStore({
       quantity: 1,
       material: {} as ProductVariant,
       checkout: {} as Checkout,
+      lineItems: [],
       stickersPerSheet: 0,
       checkoutUrl: "",
       loading: false,
-      imageName: ""
+      imageName: "",
+      basketOpen: false
     }
   },
   actions: {
     async fetchProduct() {
       const product = await shopifyClient.product.fetch('gid://shopify/Product/5628663595158')
       this.product = JSON.parse(JSON.stringify(product))
-
     },
 
     async createCheckout() {
-      if (!this.checkout) {
-        const checkout = await shopifyClient.checkout.create();
-        this.checkout = JSON.parse(JSON.stringify(checkout))
-      }
+      const checkout = await shopifyClient.checkout.create();
+      this.checkout = JSON.parse(JSON.stringify(checkout))
+    },
+
+    async fetchCheckout() {
+      const checkout = await shopifyClient.checkout.fetch(this.checkout.id)
+      this.lineItems = JSON.parse(JSON.stringify(checkout)).lineItems
     },
 
     async addLineItems() {
@@ -86,12 +90,25 @@ export const useProductStore = defineStore({
 
     setImageName(name: string) {
       this.imageName = name
+    },
+
+    setBasketOpen(which: boolean) {
+      this.basketOpen = which
     }
   },
 
   getters: {
     variants: state => state.product.variants,
     inStock: state => state.product.availableForSale,
+    quantityInBasket: state => {
+      let quantity = 0;
+
+      state.lineItems.forEach((item: any) => {
+        quantity += item.quantity
+      })
+
+      return quantity
+    }
   }
 })
 

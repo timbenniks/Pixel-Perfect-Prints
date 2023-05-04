@@ -7,6 +7,7 @@ import { SfButton, SfLoaderCircular } from "@storefront-ui/vue";
 
 const productStore = useProductStore();
 await productStore.fetchProduct();
+await productStore.createCheckout();
 
 const {
   material,
@@ -152,14 +153,14 @@ function setQuantity(data: any) {
   productStore.setQuantity(data);
 }
 
-async function createCheckout() {
+async function addToCart() {
   productStore.setLoading(true);
   productStore.setImageName(`${uuidv4()}.png`);
-  await productStore.createCheckout();
   await productStore.addLineItems();
   await saveImage().catch((error) => console.error(error));
-  //productStore.setLoading(false);
-  window.location.href = checkoutUrl.value;
+  productStore.setLoading(false);
+  //window.location.href = checkoutUrl.value;
+  await productStore.fetchCheckout();
 }
 
 watch(material, (selectedMaterial) => {
@@ -334,7 +335,7 @@ watch(material, (selectedMaterial) => {
         </ul>
 
         <SfButton
-          @click="createCheckout"
+          @click="addToCart"
           :disabled="loading"
           :class="{ 'opacity-70 pointer-events-none no-underline': loading }"
           class="font-semibold !bg-neutral-900 hover:opacity-90 hover:underline"
