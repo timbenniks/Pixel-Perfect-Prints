@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     }
   },
 
+  build: {
+    transpile: ['vueticol']
+  },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/image-edge',

@@ -8,6 +8,10 @@ const shopifyClient = Client.buildClient({
   storefrontAccessToken: '7feed2256a3351d5924cba3fef5862fb'
 });
 
+type productImage = {
+  filename: string;
+  imageUrl: string;
+}
 
 export const useProductStore = defineStore({
   id: 'product-store',
@@ -29,7 +33,8 @@ export const useProductStore = defineStore({
       checkoutUrl: "",
       loading: false,
       imageName: "",
-      basketOpen: false
+      basketOpen: false,
+      productImages: [] as productImage[]
     }
   },
   actions: {
@@ -94,6 +99,10 @@ export const useProductStore = defineStore({
 
     setBasketOpen(which: boolean) {
       this.basketOpen = which
+    },
+
+    setProductImages(filename: string, imageUrl: string) {
+      this.productImages.push({ filename, imageUrl })
     }
   },
 
@@ -108,6 +117,9 @@ export const useProductStore = defineStore({
       })
 
       return quantity
+    },
+    imageByFilename: (state) => {
+      return (filename: string) => state.productImages.find((image) => image.filename === filename)?.imageUrl
     }
   }
 })

@@ -18,7 +18,7 @@ const {
   stickersPerSheet,
   quantity,
   price,
-  checkoutUrl,
+  lineItems,
   loading,
   imageName,
 } = storeToRefs(productStore);
@@ -94,10 +94,7 @@ function drawSheet(img: HTMLImageElement) {
   const numCols = Math.ceil(width / imageWidth);
   const numRows = Math.ceil(height / imageHeight);
 
-  if (ctx.value) {
-    ctx.value.fillStyle = "#ffffff";
-    ctx.value.fillRect(0, 0, width, height);
-  }
+  ctx.value?.clearRect(0, 0, width, height);
 
   productStore.setStickersPerSheet((numCols - 1) * (numRows - 1));
 
@@ -142,25 +139,39 @@ async function saveImage() {
       upsert: false,
     });
 
+  productStore.setProductImages(imageName.value, dataURL as string);
+
   if (error) {
     return error;
   }
 
-  return data;
+  return dataURL;
 }
 
 function setQuantity(data: any) {
   productStore.setQuantity(data);
 }
 
+const bgcolor = ref("#ffffff");
+function setBgcolor(color: string) {
+  bgcolor.value = color;
+}
+
 async function addToCart() {
   productStore.setLoading(true);
-  productStore.setImageName(`${uuidv4()}.png`);
+
+  const filename = `${uuidv4()}.png`;
+  productStore.setImageName(filename);
   await productStore.addLineItems();
   await saveImage().catch((error) => console.error(error));
+
   productStore.setLoading(false);
   //window.location.href = checkoutUrl.value;
   await productStore.fetchCheckout();
+}
+
+function openBasket() {
+  productStore.setBasketOpen(true);
 }
 
 watch(material, (selectedMaterial) => {
@@ -239,7 +250,7 @@ watch(material, (selectedMaterial) => {
             id="imageWidth"
             v-model="imageWidthCm"
             min="3"
-            max="12"
+            max="20"
             step="0.1"
             @input="redrawSheet"
             class="block mb-8"
@@ -355,12 +366,25 @@ watch(material, (selectedMaterial) => {
       <div
         class="bg-white border-4 border-[#F9C066] p-4 md:sticky md:top-[120px]"
       >
-        <p class="uppercase font-bold text-sm">Your Stickers:</p>
-        <p class="font-black text-4xl mb-2">
-          <span v-if="file">{{ price }}</span>
-        </p>
+        <div class="flex justify-between">
+          <div>
+            <p class="uppercase font-bold text-sm">Your Stickers:</p>
+            <p class="font-black text-4xl mb-2">
+              <span v-if="file">{{ price }}</span>
+            </p>
+          </div>
+          <div v-if="file" class="flex flex-col items-end mb-2">
+            <p class="uppercase font-bold text-sm mb-1">
+              Change preview bg color
+            </p>
+            <color-picker @bgcolor="setBgcolor" />
+          </div>
+        </div>
 
-        <div class="border-dashed border-primary-300 border p-2 mb-2">
+        <div
+          class="border-dashed border-primary-300 border p-2 mb-2"
+          :style="{ background: bgcolor }"
+        >
           <canvas ref="sheet" class="w-full"></canvas>
         </div>
       </div>

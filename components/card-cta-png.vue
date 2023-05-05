@@ -22,7 +22,7 @@
           target="_blank"
           class="underline"
           >Princess Nugget Crafts</a
-        >, a French artisinal crafts atelier.
+        >, a French artisinal crafts boutique.
       </p>
     </article>
 
