@@ -9,6 +9,10 @@ useServerSeoMeta({
   ogImage: "https://example.com/image.png",
   twitterCard: "summary_large_image",
 });
+
+const productStore = useProductStore();
+await productStore.createCheckout();
+await productStore.fetchCollection("gid://shopify/Collection/220283764886");
 </script>
 <template>
   <global-header />
@@ -23,6 +27,7 @@ useServerSeoMeta({
     </template>
   </two-column>
 
+  <product-grid />
   <sticker-creator />
   <global-footer />
   <basket />

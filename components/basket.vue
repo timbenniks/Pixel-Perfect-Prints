@@ -22,9 +22,10 @@ const basketContents = computed(() => {
     return {
       title: item.title,
       quantity: item.quantity,
-      image: item.customAttributes.find(
-        (attr: any) => attr.key === "Sheet filename"
-      ).value,
+      image: getImage(
+        item.customAttributes.find((attr: any) => attr.key === "Sheet filename")
+          .value
+      ),
       customAttributes: item.customAttributes.filter(
         (attr: any) => attr.key !== "Sheet filename"
       ),
@@ -104,40 +105,12 @@ const totalPrice = computed(() => {
             <p class="text-xl font-bold mt-1 ml-2">{{ totalPrice }}</p>
           </div>
 
-          <ul>
-            <li
-              v-for="item in basketContents"
-              :key="item.title"
-              class="flex bg-primary-950 p-4 text-white mb-4"
-            >
-              <img
-                :src="getImage(item.image)"
-                :height="item.variant.image.height"
-                :width="item.variant.image.width"
-                :alt="item.title"
-                class="mr-4 self-center w-32"
-              />
-              <div>
-                <p class="font-bold text-xl mb-2">
-                  {{ item.title }}: {{ item.variant.title }}
-                </p>
-                <ul class="mb-4">
-                  <li
-                    v-for="attribute in item.customAttributes"
-                    :key="attribute.key"
-                    class="text-sm"
-                  >
-                    {{ attribute.key }}:
-                    <span class="text-bold">{{ attribute.value }}</span>
-                  </li>
-                </ul>
-
-                <p>Quantity: {{ item.quantity }}</p>
-                <p class="font-bold text-xl">{{ item.total }}</p>
-              </div>
-            </li>
-          </ul>
-          <div class="flex mb-4">
+          <basket-product-card
+            v-for="item in basketContents"
+            :key="item.title"
+            :item="item"
+          />
+          <div class="flex mt-4">
             <SfButton
               :href="checkoutUrl"
               tag="a"

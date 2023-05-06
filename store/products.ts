@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Client from 'shopify-buy';
-import type { Product, Checkout, ProductVariant, OrderLineItem } from 'shopify-buy'
+import type { Product, Checkout, ProductVariant, Collection } from 'shopify-buy'
 
 const shopifyClient = Client.buildClient({
   apiVersion: '2023-04',
@@ -18,6 +18,7 @@ export const useProductStore = defineStore({
   state: () => {
     return {
       product: {} as Product,
+      collection: {} as Collection,
       pxPerMm: 11.81,
       sheetWidth: 188,
       sheetHeight: 265,
@@ -41,6 +42,11 @@ export const useProductStore = defineStore({
     async fetchProduct() {
       const product = await shopifyClient.product.fetch('gid://shopify/Product/5628663595158')
       this.product = JSON.parse(JSON.stringify(product))
+    },
+
+    async fetchCollection(id: string) {
+      const collection = await shopifyClient.collection.fetchWithProducts(id)
+      this.collection = JSON.parse(JSON.stringify(collection))
     },
 
     async createCheckout() {
@@ -120,7 +126,8 @@ export const useProductStore = defineStore({
     },
     imageByFilename: (state) => {
       return (filename: string) => state.productImages.find((image) => image.filename === filename)?.imageUrl
-    }
+    },
+    collectionProducts: state => state.collection.products
   }
 })
 

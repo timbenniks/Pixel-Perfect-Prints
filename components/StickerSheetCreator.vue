@@ -3,7 +3,11 @@ import { storeToRefs } from "pinia";
 import { changeDpiDataUrl } from "../helpers/changedpi";
 import type { ProductVariant } from "shopify-buy";
 import { v4 as uuidv4 } from "uuid";
-import { SfButton, SfLoaderCircular } from "@storefront-ui/vue";
+import {
+  SfButton,
+  SfLoaderCircular,
+  SfIconShoppingCart,
+} from "@storefront-ui/vue";
 
 const productStore = useProductStore();
 await productStore.fetchProduct();
@@ -191,7 +195,7 @@ watch(material, (selectedMaterial) => {
       </p>
 
       <div
-        class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md"
+        class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md hover:shadow-lg"
         v-if="inStock"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
@@ -234,7 +238,7 @@ watch(material, (selectedMaterial) => {
       </div>
 
       <div
-        class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md"
+        class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md hover:shadow-lg"
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
@@ -266,7 +270,7 @@ watch(material, (selectedMaterial) => {
       </div>
 
       <div
-        class="bg-[#fff3df] p-8 mb-4 border-[#F9C066] border rounded-md"
+        class="bg-[#fff3df] p-8 mb-4 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
@@ -279,7 +283,9 @@ watch(material, (selectedMaterial) => {
             :key="variant.id"
             :class="{ 'opacity-30': !variant.available }"
           >
-            <label class="block cursor-pointer bg-[#F9C066] p-1 rounded-sm">
+            <label
+              class="block cursor-pointer border p-2 border-[#F9C066] rounded-md p-1 bg-white"
+            >
               <div class="flex space-x-1 mb-1">
                 <input
                   type="radio"
@@ -303,7 +309,7 @@ watch(material, (selectedMaterial) => {
       </div>
 
       <div
-        class="bg-[#fff3df] mb-4 p-8 border-[#F9C066] border rounded-md"
+        class="bg-[#fff3df] mb-4 p-8 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
@@ -318,7 +324,7 @@ watch(material, (selectedMaterial) => {
       </div>
 
       <div
-        class="bg-[#fff3df] p-8 border-[#F9C066] border rounded-md"
+        class="bg-[#fff3df] p-8 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
@@ -358,13 +364,15 @@ watch(material, (selectedMaterial) => {
               class="!text-white !ring-primary-900 ml-2"
             />
           </template>
-          <template v-else>Add to cart</template>
+          <template v-else
+            ><SfIconShoppingCart size="sm" /> Add to cart</template
+          >
         </SfButton>
       </div>
     </div>
     <div>
       <div
-        class="bg-white border-4 border-[#F9C066] p-4 md:sticky md:top-[120px]"
+        class="bg-white border-4 border-[#F9C066] p-4 md:sticky md:top-[120px] rounded-md"
       >
         <div class="flex justify-between">
           <div>
