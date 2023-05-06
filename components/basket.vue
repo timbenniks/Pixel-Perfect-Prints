@@ -22,10 +22,13 @@ const basketContents = computed(() => {
     return {
       title: item.title,
       quantity: item.quantity,
-      image: getImage(
-        item.customAttributes.find((attr: any) => attr.key === "Sheet filename")
-          .value
-      ),
+      image:
+        item.customAttributes &&
+        getImage(
+          item.customAttributes.find(
+            (attr: any) => attr.key === "Sheet filename"
+          )?.value || ""
+        ),
       customAttributes: item.customAttributes.filter(
         (attr: any) => attr.key !== "Sheet filename"
       ),

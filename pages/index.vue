@@ -27,8 +27,8 @@ await productStore.fetchCollection("gid://shopify/Collection/220283764886");
     </template>
   </two-column>
 
-  <product-grid />
   <sticker-creator />
+  <product-grid />
   <global-footer />
   <basket />
 </template>

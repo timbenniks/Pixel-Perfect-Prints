@@ -18,7 +18,7 @@ export const useProductStore = defineStore({
   state: () => {
     return {
       product: {} as Product,
-      collection: {} as Collection,
+      collection: {} as any,
       pxPerMm: 11.81,
       sheetWidth: 188,
       sheetHeight: 265,
@@ -46,7 +46,24 @@ export const useProductStore = defineStore({
 
     async fetchCollection(id: string) {
       const collection = await shopifyClient.collection.fetchWithProducts(id)
-      this.collection = JSON.parse(JSON.stringify(collection))
+      const deProxifiedCollection = JSON.parse(JSON.stringify(collection))
+
+      const money = new Intl.NumberFormat("nl-NL", {
+        style: "currency",
+        currency: "EUR",
+      });
+
+      this.collection = deProxifiedCollection.products.map((product: Product) => {
+        return {
+          availableForSale: product.availableForSale,
+          description: product.description,
+          title: product.title,
+          images: product.images,
+          variant: product.variants[0],
+          featuredImage: product.featuredImage,
+          price: money.format(product.variants[0].price.amount)
+        }
+      })
     },
 
     async createCheckout() {
@@ -75,6 +92,18 @@ export const useProductStore = defineStore({
 
       await shopifyClient.checkout.addLineItems(checkoutId, lineItemsToAdd)
       this.checkoutUrl = `${this.checkout.webUrl.replace("princess-nugget-shop.myshopify.com", "princessnugget.com")}&locale=en`
+    },
+
+    async addLineItemForVariant(id: string, quantity: number) {
+      const checkoutId = this.checkout.id
+      const lineItemsToAdd = [
+        {
+          variantId: id,
+          quantity: quantity,
+        }
+      ];
+
+      await shopifyClient.checkout.addLineItems(checkoutId, lineItemsToAdd)
     },
 
     setQuantity(quantity: number) {
@@ -127,7 +156,6 @@ export const useProductStore = defineStore({
     imageByFilename: (state) => {
       return (filename: string) => state.productImages.find((image) => image.filename === filename)?.imageUrl
     },
-    collectionProducts: state => state.collection.products
   }
 })
 

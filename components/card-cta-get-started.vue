@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-negative-200 flex flex-col-reverse lg:flex-row">
+  <div class="bg-negative-100 flex flex-col-reverse lg:flex-row">
     <NuxtImg
       provider="cloudinary"
       src="mockup1.png"

@@ -1,35 +1,39 @@
 <script lang="ts" setup>
-import { SfLink, SfButton, SfIconShoppingCart } from "@storefront-ui/vue";
+import { SfButton, SfIconShoppingCart } from "@storefront-ui/vue";
+const productStore = useProductStore();
+
+async function addToCard(id: string) {
+  await productStore.addLineItemForVariant(id, 1);
+  await productStore.fetchCheckout();
+}
+
 defineProps(["product"]);
 </script>
 
 <template>
-  <div
-    class="border border-neutral-200 rounded-md hover:shadow-lg max-w-[300px]"
-  >
+  <div class="border border-negative-400 rounded-md hover:shadow-lg bg-white">
     <div class="relative">
-      <SfLink href="#">
-        <img
-          src=""
-          alt="Great product"
-          class="block object-cover h-auto rounded-md aspect-square"
-          :width="300"
-          :height="300"
-        />
-      </SfLink>
+      <img
+        :src="product.images[0].src"
+        :alt="product.title"
+        class="block object-cover h-auto rounded-t-md aspect-square"
+        :width="product.images[0].width"
+        :height="product.images[0].height"
+      />
     </div>
     <div class="p-4 border-t border-neutral-200">
-      <SfLink href="#" variant="secondary" class="no-underline">
-        Athletic mens walking sneakers
-      </SfLink>
+      <p class="text-xl font-bold line-clamp-1">{{ product.title }}</p>
 
-      <p
-        class="block py-2 font-normal leading-5 typography-text-sm text-neutral-700"
-      >
-        Lightweight • Non slip • Flexible outsole • Easy to wear on and off
+      <p class="block py-2 font-normal leading-5 text-sm text-neutral-700">
+        <span class="line-clamp-2">{{ product.description }}</span>
       </p>
-      <span class="block pb-2 font-bold typography-text-lg">$2345,99</span>
-      <SfButton type="button" size="sm">
+      <span class="block pb-2 font-bold text-lg">{{ product.price }}</span>
+
+      <SfButton
+        @click="addToCard(product.variant.id)"
+        type="button"
+        class="font-semibold !bg-neutral-900 hover:opacity-90 hover:underline"
+      >
         <template #prefix>
           <SfIconShoppingCart size="sm" />
         </template>

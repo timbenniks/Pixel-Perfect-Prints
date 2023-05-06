@@ -364,8 +364,8 @@ watch(material, (selectedMaterial) => {
               class="!text-white !ring-primary-900 ml-2"
             />
           </template>
-          <template v-else
-            ><SfIconShoppingCart size="sm" /> Add to cart</template
+          <template v-else>
+            <SfIconShoppingCart size="sm" />Add to cart</template
           >
         </SfButton>
       </div>

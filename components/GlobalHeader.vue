@@ -14,7 +14,7 @@ function openBasket() {
     class="fixed top-0 left-0 w-full h-[90px] md:h-[100px] bg-[#FFE7C1] border-b-2 border-[#F9C066] z-10"
   >
     <div class="max-w-7xl mx-auto flex justify-between">
-      <logoSmall class="w-[350px] md:w-[400px] pt-4 pl-4" />
+      <logoSmall class="w-[300px] md:w-[400px] pt-6 md:pt-4 pl-4" />
 
       <div class="relative mt-8 mr-6">
         <button @click="openBasket()">
