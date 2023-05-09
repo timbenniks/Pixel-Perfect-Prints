@@ -13,10 +13,21 @@ useServerSeoMeta({
 const productStore = useProductStore();
 await productStore.createCheckout();
 await productStore.fetchCollection("gid://shopify/Collection/220283764886");
+
+const { composition, error } = await useUniformEnhancedComposition({
+  slug: "/",
+});
+
+if (error?.value) {
+  console.error(
+    "Error fetching composition from Uniform",
+    error.value.data.message
+  );
+}
 </script>
 <template>
-  <global-header />
-  <welcome />
+  <PageComposition v-if="composition" :composition="composition" />
+  <!-- <welcome />
 
   <two-column class="max-w-7xl mx-auto px-8 lg:p-0 mb-8">
     <template v-slot:sideA>
@@ -28,7 +39,5 @@ await productStore.fetchCollection("gid://shopify/Collection/220283764886");
   </two-column>
 
   <sticker-creator />
-  <product-grid />
-  <global-footer />
-  <basket />
+  <product-grid /> -->
 </template>

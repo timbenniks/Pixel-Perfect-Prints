@@ -10,5 +10,5 @@ export function generateSrcSet(widths: number[], imageId: string) {
 }
 
 export function concatCloudinaryUrl(imageId: string, width: number) {
-  return `https://res.cloudinary.com/dwfcofnrd/image/upload/f_auto,q_auto,w_${width}/ppp/${imageId}`;
+  return `https://res.cloudinary.com/dwfcofnrd/image/upload/f_auto,q_auto,w_${width}/${imageId}`;
 }
