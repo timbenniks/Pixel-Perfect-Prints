@@ -3,11 +3,16 @@ import { ManifestV2 } from "@uniformdev/context";
 
 export default defineNuxtConfig({
   experimental: {
-    noVueServer: true
+    noVueServer: false
   },
   nitro: {
     prerender: {
       routes: ["/"]
+    }
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['p-limit']
     }
   },
   app: {
