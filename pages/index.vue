@@ -1,6 +1,5 @@
 <script setup lang="ts">
 useServerSeoMeta({
-  title: "Pixel Perfect Prints",
   ogTitle: "Pixel Perfect Prints",
   description:
     "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
@@ -8,6 +7,10 @@ useServerSeoMeta({
     "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
   ogImage: "https://example.com/image.png",
   twitterCard: "summary_large_image",
+});
+
+useSeoMeta({
+  title: "Pixel Perfect Prints",
 });
 
 const productStore = useProductStore();
