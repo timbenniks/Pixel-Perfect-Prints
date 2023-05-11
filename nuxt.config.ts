@@ -2,6 +2,14 @@ import manifest from "./contextManifest.json";
 import { ManifestV2 } from "@uniformdev/context";
 
 export default defineNuxtConfig({
+  experimental: {
+    noVueServer: true
+  },
+  nitro: {
+    prerender: {
+      routes: ["/"]
+    }
+  },
   app: {
     head: {
       htmlAttrs: {
