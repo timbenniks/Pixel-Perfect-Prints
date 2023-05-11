@@ -43,14 +43,9 @@ interface Props {
 const props = defineProps<Props>();
 
 const { composition } = props;
-const { metaTitle } = composition?.parameters || {};
-const title = metaTitle?.value as string;
 </script>
 
 <template>
-  <head>
-    <title>{{ title }}</title>
-  </head>
   <global-header />
 
   <UniformComposition :data="composition" :resolveRenderer="componentResolver">
