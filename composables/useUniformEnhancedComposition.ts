@@ -1,16 +1,13 @@
 export async function useUniformEnhancedComposition(parameters: Parameters<typeof useUniformComposition>[0]) {
+  const reqFetch = useRequestFetch()
   const results = await useUniformComposition({
     ...parameters,
     enhance: async (composition) => {
-      const { composition: enhancedComposition } = await $fetch(
+      const { composition: enhancedComposition } = await reqFetch(
         "/api/enhance",
         {
           method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ composition }),
+          body: { composition }
         }
       );
       return enhancedComposition;
