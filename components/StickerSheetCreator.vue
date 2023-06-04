@@ -170,9 +170,8 @@ async function addToCart() {
   await saveImage().catch((error) => console.error(error));
 
   productStore.setLoading(false);
-  //window.location.href = checkoutUrl.value;
   await productStore.fetchCheckout();
-  openBasket();
+  productStore.setBasketOpen(true);
 }
 
 function openBasket() {
