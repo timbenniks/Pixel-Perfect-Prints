@@ -172,6 +172,7 @@ async function addToCart() {
   productStore.setLoading(false);
   //window.location.href = checkoutUrl.value;
   await productStore.fetchCheckout();
+  openBasket();
 }
 
 function openBasket() {
@@ -201,11 +202,26 @@ watch(material, (selectedMaterial) => {
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
           Step 1: upload your sticker
         </p>
-        <p class="mb-4 text-sm">
-          Make sure your sticker is a <strong>PNG</strong> file with a
+        <p class="mb-4 text-sm bg-[#F9C066] p-2 rounded-md">
+          1. Make sure your sticker is a <strong>PNG</strong> file with a
           <strong>transparent</strong> background and cropped as close to the
           edge of your sticker as possible.
         </p>
+
+        <p class="text-sm bg-[#F9C066] p-2 rounded-t-md">
+          2. If you sticker has multiple seperated parts, make sure they are
+          <strong>connected</strong> by a white background.
+        </p>
+
+        <NuxtImg
+          provider="cloudinary"
+          src="ppp/ppp-help.png"
+          alt="How to submit the correct sticker"
+          width="700"
+          height="177"
+          loading="lazy"
+          class="block w-full mb-4 border-[#F9C066] border rounded-b-md"
+        />
         <div class="mb-2 flex">
           <input
             type="file"
@@ -269,7 +285,7 @@ watch(material, (selectedMaterial) => {
         </div>
       </div>
 
-      <div
+      <!-- <div
         class="bg-[#fff3df] p-8 mb-4 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
       >
@@ -306,14 +322,14 @@ watch(material, (selectedMaterial) => {
             </label>
           </li>
         </ul>
-      </div>
+      </div> -->
 
       <div
         class="bg-[#fff3df] mb-4 p-8 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
-          Step 4: select quantity
+          Step 3: select quantity
         </p>
         <p class="mb-4 text-sm">
           Select how many sheets you want.
@@ -328,7 +344,7 @@ watch(material, (selectedMaterial) => {
         v-show="file"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
-          Step 5: add to card
+          Step 4: add to card
         </p>
 
         <ul class="mb-4 text-sm list-inside list-disc">

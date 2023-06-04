@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Client from 'shopify-buy';
-import type { Product, Checkout, ProductVariant, Collection } from 'shopify-buy'
+import type { Product, Checkout, ProductVariant } from 'shopify-buy'
 
 const shopifyClient = Client.buildClient({
   apiVersion: '2023-04',
@@ -40,7 +40,7 @@ export const useProductStore = defineStore({
   },
   actions: {
     async fetchProduct() {
-      const product = await shopifyClient.product.fetch('gid://shopify/Product/5628663595158')
+      const product = await shopifyClient.product.fetch('gid://shopify/Product/8511119491407')
       this.product = JSON.parse(JSON.stringify(product))
     },
 

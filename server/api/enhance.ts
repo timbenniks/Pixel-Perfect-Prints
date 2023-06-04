@@ -13,7 +13,7 @@ import { H3Event } from "h3";
 //   accessToken: process.env.SHOPIFY_TOKEN,
 // });
 
-//const shopifyEnhancer = createEnhancer({ clients: client });
+// const shopifyEnhancer = createEnhancer({ clients: client });
 
 export default defineEventHandler(async (event: H3Event) => {
   const body = await readBody(event);
