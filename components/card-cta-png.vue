@@ -14,8 +14,17 @@ defineProps<Props>();
 
 <template>
   <div class="bg-[#eedad7] lg:aspect-[1000/620] lg:relative">
-    <NuxtImg
+    <!-- <NuxtImg
       provider="cloudinary"
+      src="ppp/princess_nugget_cratfts_2.png"
+      alt="princess nugget cratfts"
+      width="1000"
+      height="620"
+      loading="eager"
+      class="hidden lg:block w-full object-contain lg:absolute"
+    /> -->
+
+    <CldImage
       src="ppp/princess_nugget_cratfts_2.png"
       alt="princess nugget cratfts"
       width="1000"
@@ -33,8 +42,17 @@ defineProps<Props>();
       <p class="mb-4" v-if="description" v-html="description"></p>
     </article>
 
-    <NuxtImg
+    <!-- <NuxtImg
       provider="cloudinary"
+      src="ppp/princess_nugget_cratfts_mobile.png"
+      alt="princess nugget cratfts"
+      width="463"
+      height="620"
+      loading="eager"
+      class="lg:hidden w-full object-contain block"
+    /> -->
+
+    <CldImage
       src="ppp/princess_nugget_cratfts_mobile.png"
       alt="princess nugget cratfts"
       width="463"

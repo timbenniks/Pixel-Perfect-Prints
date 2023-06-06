@@ -7,6 +7,7 @@ import {
   SfButton,
   SfLoaderCircular,
   SfIconShoppingCart,
+  SfCheckbox,
 } from "@storefront-ui/vue";
 
 const productStore = useProductStore();
@@ -22,9 +23,9 @@ const {
   stickersPerSheet,
   quantity,
   price,
-  lineItems,
   loading,
   imageName,
+  checkoutUrl,
 } = storeToRefs(productStore);
 
 const pxPerMm = productStore.pxPerMm;
@@ -36,6 +37,9 @@ const sheet = ref<HTMLCanvasElement | null>(null);
 const ctx = ref<CanvasRenderingContext2D | null>(null);
 const width = sheetWidth * pxPerMm;
 const height = sheetHeight * pxPerMm;
+const bgcolor = ref("#ffffff");
+const disabled = ref(false);
+const readInstructions = ref(false);
 
 productStore.setMaterial(variants.value[0] as ProductVariant);
 
@@ -156,26 +160,24 @@ function setQuantity(data: any) {
   productStore.setQuantity(data);
 }
 
-const bgcolor = ref("#ffffff");
 function setBgcolor(color: string) {
   bgcolor.value = color;
 }
 
 async function addToCart() {
-  productStore.setLoading(true);
+  productStore.setLoading("Creating sticker sheet");
 
   const filename = `${uuidv4()}.png`;
   productStore.setImageName(filename);
   await productStore.addLineItems();
   await saveImage().catch((error) => console.error(error));
 
-  productStore.setLoading(false);
+  productStore.setLoading("Redirecting");
   await productStore.fetchCheckout();
-  productStore.setBasketOpen(true);
-}
 
-function openBasket() {
-  productStore.setBasketOpen(true);
+  window.location.href = checkoutUrl.value;
+  //productStore.setBasketOpen(true);
+  //disabled.value = true;
 }
 
 watch(material, (selectedMaterial) => {
@@ -197,23 +199,23 @@ watch(material, (selectedMaterial) => {
       <div
         class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md hover:shadow-lg"
         v-if="inStock"
+        :class="{ 'pointer-events-none opacity-30': disabled }"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
           Step 1: upload your sticker
         </p>
         <p class="mb-4 text-sm bg-[#F9C066] p-2 rounded-md">
-          1. Make sure your sticker is a <strong>PNG</strong> file with a
+          1. Make sure you upload a <strong>PNG</strong> file with a
           <strong>transparent</strong> background and cropped as close to the
-          edge of your sticker as possible.
+          edge of the sticker as possible.
         </p>
 
         <p class="text-sm bg-[#F9C066] p-2 rounded-t-md">
-          2. If you sticker has multiple seperated parts, make sure they are
+          2. If the sticker has multiple seperated parts, make sure they are
           <strong>connected</strong> by a white background.
         </p>
 
-        <NuxtImg
-          provider="cloudinary"
+        <CldImage
           src="ppp/ppp-help.png"
           alt="How to submit the correct sticker"
           width="700"
@@ -221,7 +223,26 @@ watch(material, (selectedMaterial) => {
           loading="lazy"
           class="block w-full mb-4 border-[#F9C066] border rounded-b-md"
         />
-        <div class="mb-2 flex">
+        <div class="flex items-center mb-4">
+          <SfCheckbox
+            id="checkbox"
+            v-model="readInstructions"
+            :value="true"
+            class-name="peer"
+          />
+          <label
+            class="ml-3 text-sm text-gray-900 cursor-pointer font-body peer-disabled:text-disabled-900"
+            for="checkbox"
+          >
+            I read the above instructions and I understand how to design my
+            sticker
+          </label>
+        </div>
+        <div
+          class="mb-2 flex"
+          :class="{ 'opacity-20 pointer-events-none': !readInstructions }"
+          :disabled="!readInstructions"
+        >
           <input
             type="file"
             accept="image/png"
@@ -233,7 +254,7 @@ watch(material, (selectedMaterial) => {
           <label
             for="file"
             class="file-btn py-2 px-3 font-semibold !bg-neutral-900 hover:opacity-90 hover:underline inline-block text-white rounded cursor-pointer"
-            >Select your sticker</label
+            >Select sticker file</label
           >
 
           <p v-if="fileName" class="ml-4 mt-2">{{ fileName }}</p>
@@ -255,6 +276,7 @@ watch(material, (selectedMaterial) => {
       <div
         class="bg-[#fff3df] p-4 border-[#F9C066] border mb-4 rounded-md hover:shadow-lg"
         v-show="file"
+        :class="{ 'pointer-events-none opacity-30': disabled }"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
           Step 2: choose sticker size
@@ -284,48 +306,10 @@ watch(material, (selectedMaterial) => {
         </div>
       </div>
 
-      <!-- <div
-        class="bg-[#fff3df] p-8 mb-4 border-[#F9C066] border rounded-md hover:shadow-lg"
-        v-show="file"
-      >
-        <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
-          Step 3: select material
-        </p>
-
-        <ul class="grid grid-cols-3 gap-4">
-          <li
-            v-for="variant in variants"
-            :key="variant.id"
-            :class="{ 'opacity-30': !variant.available }"
-          >
-            <label
-              class="block cursor-pointer border p-2 border-[#F9C066] rounded-md p-1 bg-white"
-            >
-              <div class="flex space-x-1 mb-1">
-                <input
-                  type="radio"
-                  name="material"
-                  v-model="material"
-                  :value="variant"
-                  :disabled="!variant.available"
-                />
-                <p class="uppercase text-sm font-bold">{{ variant.title }}</p>
-              </div>
-              <img
-                :src="variant.image.src"
-                :height="variant.image.height"
-                :width="variant.image.width"
-                :alt="variant.title"
-                class="block"
-              />
-            </label>
-          </li>
-        </ul>
-      </div> -->
-
       <div
         class="bg-[#fff3df] mb-4 p-8 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
+        :class="{ 'pointer-events-none opacity-30': disabled }"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
           Step 3: select quantity
@@ -341,6 +325,7 @@ watch(material, (selectedMaterial) => {
       <div
         class="bg-[#fff3df] p-8 border-[#F9C066] border rounded-md hover:shadow-lg"
         v-show="file"
+        :class="{ 'pointer-events-none opacity-30': disabled }"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
           Step 4: add to card
@@ -357,10 +342,10 @@ watch(material, (selectedMaterial) => {
             }}
             inch).
           </li>
-          <li>
+          <!-- <li>
             Sticker material: <strong>{{ material.title }}</strong
             >.
-          </li>
+          </li> -->
           <li>
             Total price: <strong>{{ price }}</strong>
           </li>
@@ -368,20 +353,23 @@ watch(material, (selectedMaterial) => {
 
         <SfButton
           @click="addToCart"
-          :disabled="loading"
-          :class="{ 'opacity-70 pointer-events-none no-underline': loading }"
+          :disabled="
+            loading === 'Creating sticker sheet' || loading === 'Redirecting'
+          "
+          :class="{ 'opacity-80 pointer-events-none no-underline': loading }"
           class="font-semibold !bg-neutral-900 hover:opacity-90 hover:underline"
         >
-          <template v-if="loading"
-            >Creating your sticker sheet...
+          <template
+            v-if="
+              loading === 'Creating sticker sheet' || loading === 'Redirecting'
+            "
+            >{{ loading }}
             <SfLoaderCircular
               size="sm"
               class="!text-white !ring-primary-900 ml-2"
             />
           </template>
-          <template v-else>
-            <SfIconShoppingCart size="sm" />Add to cart</template
-          >
+          <template v-else> <SfIconShoppingCart size="sm" />Buy now</template>
         </SfButton>
       </div>
     </div>

@@ -40,7 +40,8 @@ export default defineNuxtConfig({
         autoImports: ['defineStore', 'acceptHMRUpdate'],
       },
     ],
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@nuxtjs/cloudinary'
   ],
 
   uniform: {
@@ -57,10 +58,10 @@ export default defineNuxtConfig({
     dirs: ['store'],
   },
 
-  image: {
-    provider: 'cloudinary',
-    cloudinary: {
-      baseURL: 'https://res.cloudinary.com/dwfcofnrd/image/upload',
-    }
-  },
+  // image: {
+  //   provider: 'cloudinary',
+  //   cloudinary: {
+  //     baseURL: 'https://res.cloudinary.com/dwfcofnrd/image/upload',
+  //   }
+  // },
 })

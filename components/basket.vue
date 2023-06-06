@@ -49,16 +49,6 @@ const basketContents = computed(() => {
 
   return res;
 });
-
-const totalPrice = computed(() => {
-  let total = 0;
-
-  basketContents.value.forEach((item) => {
-    total += item.quantity * item.variant.price;
-  });
-
-  return money.format(total);
-});
 </script>
 <template>
   <transition
@@ -95,19 +85,6 @@ const totalPrice = computed(() => {
       <div class="p-4">
         <p v-if="basketContents.length === 0">No products selected</p>
         <div v-else>
-          <div class="flex mb-4">
-            <SfButton
-              :href="checkoutUrl"
-              tag="a"
-              target="_blank"
-              v-if="lineItems"
-              class="font-semibold !bg-neutral-900 hover:opacity-90 hover:underline"
-            >
-              Go to checkout
-            </SfButton>
-            <p class="text-xl font-bold mt-1 ml-2">{{ totalPrice }}</p>
-          </div>
-
           <basket-product-card
             v-for="item in basketContents"
             :key="item.title"
@@ -123,7 +100,6 @@ const totalPrice = computed(() => {
             >
               Go to checkout
             </SfButton>
-            <p class="text-xl font-bold mt-1 ml-2">{{ totalPrice }}</p>
           </div>
         </div>
       </div>

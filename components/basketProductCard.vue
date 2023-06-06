@@ -6,8 +6,12 @@ import {
   SfIconDelete,
   useId,
 } from "@storefront-ui/vue";
+import { storeToRefs } from "pinia";
 
 const props = defineProps(["item"]);
+const productStore = useProductStore();
+
+const { quantity, price } = storeToRefs(productStore);
 
 import { clamp } from "@storefront-ui/shared";
 import { useCounter } from "@vueuse/core";
@@ -25,6 +29,9 @@ function handleOnChange(event: Event) {
   const nextValue = parseFloat(currentValue);
   set(clamp(nextValue, min.value, max.value));
 }
+watch(count, (val) => {
+  productStore.setQuantity(val);
+});
 </script>
 
 <template>
@@ -57,7 +64,7 @@ function handleOnChange(event: Event) {
       <div class="items-center sm:mt-auto sm:flex">
         <span
           class="font-bold sm:ml-auto sm:order-1 typography-text-sm sm:typography-text-lg"
-          >{{ item.total }}
+          >{{ price }}
         </span>
         <div class="flex items-center justify-between mt-4 sm:mt-0">
           <div class="flex border border-neutral-300 rounded-md">

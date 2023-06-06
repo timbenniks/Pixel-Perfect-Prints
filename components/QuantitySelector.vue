@@ -41,12 +41,16 @@
 import { useCounter } from "@vueuse/core";
 import { SfButton, SfIconAdd, SfIconRemove, useId } from "@storefront-ui/vue";
 import { clamp } from "@storefront-ui/shared";
+import { storeToRefs } from "pinia";
+
+const productStore = useProductStore();
+const { quantity } = storeToRefs(productStore);
 
 const emit = defineEmits(["quantity"]);
 const min = ref(1);
 const max = ref(20);
 const inputId = useId();
-const { count, inc, dec, set } = useCounter(1, {
+const { count, inc, dec, set } = useCounter(quantity.value, {
   min: min.value,
   max: max.value,
 });

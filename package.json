@@ -27,6 +27,7 @@
     "nuxt": "^3.5.2"
   },
   "dependencies": {
+    "@nuxtjs/cloudinary": "^2.0.0-rc.3",
     "@pinia/nuxt": "^0.4.11",
     "@types/shopify-buy": "^2.17.1",
     "@types/uuid": "^9.0.1",

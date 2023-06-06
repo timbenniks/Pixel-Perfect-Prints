@@ -16,8 +16,17 @@ defineProps<Props>();
 </script>
 <template>
   <div class="bg-negative-100 flex flex-col-reverse lg:flex-row">
-    <NuxtImg
+    <!-- <NuxtImg
       provider="cloudinary"
+      :src="image[0].publicId"
+      alt="custom sticker"
+      width="1600"
+      height="2000"
+      loading="eager"
+      class="w-full lg:w-1/2 object-contain block"
+    /> -->
+
+    <CldImage
       :src="image[0].publicId"
       alt="custom sticker"
       width="1600"

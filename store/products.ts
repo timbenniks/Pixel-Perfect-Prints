@@ -32,7 +32,7 @@ export const useProductStore = defineStore({
       lineItems: [],
       stickersPerSheet: 0,
       checkoutUrl: "",
-      loading: false,
+      loading: "",
       imageName: "",
       basketOpen: false,
       productImages: [] as productImage[]
@@ -124,7 +124,7 @@ export const useProductStore = defineStore({
       this.price = money.format(material.price.amount * this.quantity)
     },
 
-    setLoading(which: boolean) {
+    setLoading(which: string) {
       this.loading = which
     },
 
