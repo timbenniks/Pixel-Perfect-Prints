@@ -55,7 +55,15 @@ onMounted(async () => {
   }
 });
 
-const onFileChange = (event: Event) => {
+const toBase64 = (file: any) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+  });
+
+const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   if (target.files) {
@@ -63,6 +71,9 @@ const onFileChange = (event: Event) => {
 
     fileName.value = target.files[0].name;
     file.value = target.files[0];
+
+    const base64Image = await toBase64(target.files[0]);
+    productStore.setUploadedImageBase64(base64Image as string);
 
     const reader = new FileReader();
 
@@ -140,17 +151,33 @@ async function saveImage() {
   const dataURL = sheet.value?.toDataURL("image/png");
   const to300dpi = changeDpiDataUrl(dataURL, 300);
 
-  const { data, error } = await supabaseClient.storage
+  const { data: sheetData, error: sheetError } = await supabaseClient.storage
     .from("sheet-storage")
     .upload(`public/${imageName.value}`, convertBase64ToBlob(to300dpi), {
       cacheControl: "3600",
       upsert: false,
     });
 
+  const { data: originalData, error: originalError } =
+    await supabaseClient.storage
+      .from("sheet-storage")
+      .upload(
+        `public/${imageName.value.replace(".png", "")}-original.png`,
+        convertBase64ToBlob(productStore.uploadedImageBase64),
+        {
+          cacheControl: "3600",
+          upsert: false,
+        }
+      );
+
   productStore.setProductImages(imageName.value, dataURL as string);
 
-  if (error) {
-    return error;
+  if (sheetError) {
+    return sheetError;
+  }
+
+  if (originalError) {
+    return originalError;
   }
 
   return dataURL;

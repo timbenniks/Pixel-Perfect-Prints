@@ -1,6 +1,6 @@
 <template>
-  <footer class="pt-10 bg-[#FFE7C1] border-t-2 border-[#F9C066] mt-6">
-    <div
+  <footer class="mt-6">
+    <!-- <div
       class="grid justify-center grid-cols-[1fr_1fr] md:grid-cols-[repeat(4,1fr)] px-4 md:px-6 pb-10 max-w-7xl mx-auto"
     >
       <div
@@ -27,9 +27,9 @@
           </SfLink>
         </SfListItem>
       </div>
-    </div>
+    </div> -->
 
-    <div class="bg-[#F9C066]">
+    <!-- <div class="bg-[#F9C066]">
       <div class="py-10 md:flex md:mx-auto max-w-7xl">
         <div
           v-for="{ label, icon, link, details } in contactOptions"
@@ -55,10 +55,10 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="bg-neutral-900 justify-end px-4 py-10 md:flex md:py-6 w-full">
       <div class="max-w-7xl mx-auto">
-        <div class="flex justify-center py-2 gap-x-4 md:self-start">
+        <!-- <div class="flex justify-center py-2 gap-x-4 md:self-start">
           <SfButton
             v-for="{ label, link, icon } in socialMedia"
             :key="label"
@@ -71,7 +71,7 @@
           >
             <component :is="icon" />
           </SfButton>
-        </div>
+        </div> -->
 
         <div
           class="flex items-center justify-center gap-6 py-2 my-4 md:ml-auto md:my-0"
@@ -252,12 +252,12 @@ const contactOptions = [
 ];
 const bottomLinks = [
   {
-    label: "Terms",
-    link: "/",
+    label: "Terms and Conditions",
+    link: "/terms-and-conditions",
   },
   {
     label: "Privacy policy",
-    link: "/",
+    link: "/privacy-policy",
   },
 ];
 </script>

@@ -29,6 +29,7 @@
   "dependencies": {
     "@nuxtjs/cloudinary": "^2.0.0-rc.3",
     "@pinia/nuxt": "^0.4.11",
+    "@tailwindcss/typography": "^0.5.9",
     "@types/shopify-buy": "^2.17.1",
     "@types/uuid": "^9.0.1",
     "@uniformdev/canvas": "^19.15.0",

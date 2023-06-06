@@ -35,7 +35,8 @@ export const useProductStore = defineStore({
       loading: "",
       imageName: "",
       basketOpen: false,
-      productImages: [] as productImage[]
+      productImages: [] as productImage[],
+      uploadedImageBase64: ""
     }
   },
   actions: {
@@ -138,6 +139,10 @@ export const useProductStore = defineStore({
 
     setProductImages(filename: string, imageUrl: string) {
       this.productImages.push({ filename, imageUrl })
+    },
+
+    setUploadedImageBase64(file: string) {
+      this.uploadedImageBase64 = file;
     }
   },
 

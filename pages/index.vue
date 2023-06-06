@@ -5,7 +5,8 @@ useServerSeoMeta({
     "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
   ogDescription:
     "Elevate your laptop game with a touch of French elegance and unleash your creativity with Pixel Perfect Prints!",
-  ogImage: "https://example.com/image.png",
+  ogImage:
+    "https://res.cloudinary.com/dwfcofnrd/image/upload/f_auto,q_auto,w_900/ppp/hero_banner_mobile",
   twitterCard: "summary_large_image",
 });
 
@@ -30,17 +31,4 @@ if (error?.value) {
 </script>
 <template>
   <PageComposition v-if="composition" :composition="composition" />
-  <!-- <welcome />
-
-  <two-column class="max-w-7xl mx-auto px-8 lg:p-0 mb-8">
-    <template v-slot:sideA>
-      <card-cta-png />
-    </template>
-    <template v-slot:sideB>
-      <card-cta-get-started />
-    </template>
-  </two-column>
-
-  <sticker-creator />
-  <product-grid /> -->
 </template>

@@ -16,7 +16,7 @@ function openBasket() {
     <div class="max-w-7xl mx-auto flex justify-between">
       <logoSmall class="w-[300px] md:w-[400px] pt-6 md:pt-4 pl-4" />
 
-      <div class="relative mt-8 mr-6">
+      <!-- <div class="relative mt-8 mr-6">
         <button @click="openBasket()">
           <SfIconShoppingCart size="lg" class="" />
 
@@ -28,7 +28,7 @@ function openBasket() {
             {{ quantityInBasket }}
           </SfCounter>
         </button>
-      </div>
+      </div> -->
     </div>
   </header>
 </template>
