@@ -74,7 +74,7 @@ const basketContents = computed(() => {
         <p class="text-sm">
           Checkout is provided by our partner:
           <a
-            href="https://princessnugget.com?locale=en"
+            href="https://princessnuggetcrafts.fr/en"
             target="_blank"
             class="underline"
             >Princess Nugget Crafts</a

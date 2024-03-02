@@ -37,7 +37,7 @@ defineProps<Props>();
       <p class="mb-4">
         We are working with
         <a
-          href="https://princessnugget.com"
+          href="https://princessnuggetcrafts.fr/en"
           alt="Princess Nugget Crafts"
           target="_blank"
           class="underline"

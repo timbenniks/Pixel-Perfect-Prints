@@ -92,7 +92,7 @@ export const useProductStore = defineStore({
       ];
 
       await shopifyClient.checkout.addLineItems(checkoutId, lineItemsToAdd)
-      this.checkoutUrl = `${this.checkout.webUrl.replace("princess-nugget-shop.myshopify.com", "princessnugget.com")}&locale=en`
+      this.checkoutUrl = `${this.checkout.webUrl.replace("princess-nugget-shop.myshopify.com", "princessnugget.com")}?locale=en`
     },
 
     async addLineItemForVariant(id: string, quantity: number) {

@@ -355,7 +355,7 @@ watch(material, (selectedMaterial) => {
         :class="{ 'pointer-events-none opacity-30': disabled }"
       >
         <p class="font-bold text-2xl mb-4 font-titles tracking-wide">
-          Step 4: add to card
+          Step 4: add to cart
         </p>
 
         <ul class="mb-4 text-sm list-inside list-disc">
