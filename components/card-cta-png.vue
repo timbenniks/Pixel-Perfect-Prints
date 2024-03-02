@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { ComponentInstance } from "@uniformdev/canvas";
-
-//import { UniformText } from "@uniformdev/canvas-vue";
-
 interface Props {
   title: string;
   description: string;
-  component: ComponentInstance;
 }
 
 defineProps<Props>();
@@ -37,9 +32,18 @@ defineProps<Props>();
       class="flex flex-col justify-center lg:absolute top-0 lg:h-full left-72 w-full lg:w-72 p-6 lg:p-0"
     >
       <h3 class="text-3xl font-titles tracking-wide" v-if="title">
-        {{ title }}
+        Our Partner
       </h3>
-      <p class="mb-4" v-if="description" v-html="description"></p>
+      <p class="mb-4">
+        We are working with
+        <a
+          href="https://princessnugget.com"
+          alt="Princess Nugget Crafts"
+          target="_blank"
+          class="underline"
+          >Princess Nugget Crafts</a
+        >, a French artisanal crafts boutique."
+      </p>
     </article>
 
     <!-- <NuxtImg

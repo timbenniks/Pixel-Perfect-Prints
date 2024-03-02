@@ -1,38 +1,23 @@
 <script setup lang="ts">
-import { ComponentInstance } from "@uniformdev/canvas";
-
-//import { UniformText } from "@uniformdev/canvas-vue";
-
 interface Props {
   title: string;
   description?: string;
   image: any;
   ctaText: string;
   ctaLink: any;
-  component: ComponentInstance;
 }
 
 defineProps<Props>();
 </script>
 <template>
   <div class="bg-negative-100 flex flex-col-reverse lg:flex-row">
-    <!-- <NuxtImg
-      provider="cloudinary"
-      :src="image[0].publicId"
-      alt="custom sticker"
-      width="1600"
-      height="2000"
-      loading="eager"
-      class="w-full lg:w-1/2 object-contain block"
-    /> -->
-
     <CldImage
       :src="image[0].publicId"
       alt="custom sticker"
       width="1600"
       height="2000"
       loading="eager"
-      class="w-full lg:w-1/2 object-contain block"
+      class="w-full lg:!w-1/2 object-contain block"
     />
     <article class="flex flex-col justify-center w-full lg:w-72 p-6 lg:p-0">
       <h3 class="text-3xl font-titles tracking-wide" v-if="title">

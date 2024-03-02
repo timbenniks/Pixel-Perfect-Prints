@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { generateSrcSet } from "../helpers/images";
-import { ComponentInstance } from "@uniformdev/canvas";
 
 interface Props {
   title: string;
@@ -9,7 +8,6 @@ interface Props {
   imageMobile: any;
   ctaText: string;
   ctaLink: any;
-  component: ComponentInstance;
 }
 
 defineProps<Props>();
