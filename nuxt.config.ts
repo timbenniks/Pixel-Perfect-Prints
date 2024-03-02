@@ -25,6 +25,14 @@ export default defineNuxtConfig({
     '@nuxtjs/cloudinary'
   ],
 
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      exclude: ['/'],
+    }
+  },
+
   imports: {
     dirs: ['store'],
   },
